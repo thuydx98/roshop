@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ROS.Common\ROS.Common.csproj" />
+    <ProjectReference Include="..\ROS.Contracts\ROS.Contracts.csproj" />
+    <ProjectReference Include="..\ROS.EntityFramework\ROS.EntityFramework.csproj" />
+    <ProjectReference Include="..\ROS.Services\ROS.Services.csproj" />
+  </ItemGroup>
+
+</Project>
