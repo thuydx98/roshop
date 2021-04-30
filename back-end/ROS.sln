@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Api", "ROS.Api\ROS.Api.csproj", "{5AD3FF37-E3ED-4BC8-BDDD-D55C5DCBC8DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ROS.Api", "ROS.Api\ROS.Api.csproj", "{5AD3FF37-E3ED-4BC8-BDDD-D55C5DCBC8DA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{CA677A78-6E8C-4AF4-B91F-CAEEF9BB5E5C}"
 EndProject
@@ -13,21 +13,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Application
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{43D48622-C771-40C4-985E-7C5BF2CE7F61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Data", "ROS.Data\ROS.Data.csproj", "{E3DA4977-C76F-46D3-B102-7DFDF6303D35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ROS.Data", "ROS.Data\ROS.Data.csproj", "{E3DA4977-C76F-46D3-B102-7DFDF6303D35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Contracts", "ROS.Contracts\ROS.Contracts.csproj", "{855F7539-A8E2-47EC-8A14-25BBFD703E8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ROS.Contracts", "ROS.Contracts\ROS.Contracts.csproj", "{855F7539-A8E2-47EC-8A14-25BBFD703E8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Common", "ROS.Common\ROS.Common.csproj", "{CD7018FD-C010-4171-B0EB-AD454F1FE605}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ROS.Common", "ROS.Common\ROS.Common.csproj", "{CD7018FD-C010-4171-B0EB-AD454F1FE605}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Mail", "ROS.Mail\ROS.Mail.csproj", "{F64A61A4-D6F0-4B33-BA04-8AA26176F86C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ROS.Mail", "ROS.Mail\ROS.Mail.csproj", "{F64A61A4-D6F0-4B33-BA04-8AA26176F86C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.SMS", "ROS.SMS\ROS.SMS.csproj", "{D8DA0E66-AEAA-467D-B590-0FF5593B7F71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ROS.SMS", "ROS.SMS\ROS.SMS.csproj", "{D8DA0E66-AEAA-467D-B590-0FF5593B7F71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.EntityFramework", "ROS.EntityFramework\ROS.EntityFramework.csproj", "{EC23A276-B6A5-4E4B-8BDB-8377214F1A35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ROS.EntityFramework", "ROS.EntityFramework\ROS.EntityFramework.csproj", "{EC23A276-B6A5-4E4B-8BDB-8377214F1A35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Infrastructure", "ROS.Infrastructure\ROS.Infrastructure.csproj", "{3BE07580-F5F8-4A53-A7C3-C3B3650B90BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ROS.Infrastructure", "ROS.Infrastructure\ROS.Infrastructure.csproj", "{3BE07580-F5F8-4A53-A7C3-C3B3650B90BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Services", "ROS.Services\ROS.Services.csproj", "{81654609-007D-4063-953F-B9467C297DD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ROS.Services", "ROS.Services\ROS.Services.csproj", "{81654609-007D-4063-953F-B9467C297DD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
