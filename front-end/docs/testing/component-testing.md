@@ -45,11 +45,11 @@ _Note: This is a [state**less** ("dumb") component](../js/README.md#architecture
 It might be used in another component like this:
 
 ```javascript
-// HomePage.js
+// Home.js
 
 import Button from './Button';
 
-function HomePage() {
+function Home() {
   return <Button onClick={this.doSomething}>Click me!</Button>;
 }
 ```

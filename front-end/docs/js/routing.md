@@ -13,7 +13,7 @@ for more information)
 To add a new route, simply import the `Route` component and use it standalone or inside the `Switch` component (all part of [RR5 API](https://reacttraining.com/react-router/web/api)):
 
 ```JS
-<Route exact path="/" component={HomePage} />
+<Route exact path="/" component={Home} />
 ```
 
 Top level routes are located in `App.js`.

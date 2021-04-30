@@ -54,7 +54,7 @@ In any case, here's the TL;DR:
 
 We use the [container/component architecture](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.4rmjqneiw). `containers/` contains React components which are connected to the redux store. `components/` contains dumb React components which depend on containers for data. **Container components care about how things work, while components care about how things look.**
 
-We've found that for many applications treating single pages (e.g. the LoginPage, the HomePage, etc.) as containers and their small parts (e.g. the Login form, the Navigation bar) as components works well, but there are no rigid rules. **Bend the architecture to the needs of your app, nothing is set in stone!**
+We've found that for many applications treating single pages (e.g. the LoginPage, the Home, etc.) as containers and their small parts (e.g. the Login form, the Navigation bar) as components works well, but there are no rigid rules. **Bend the architecture to the needs of your app, nothing is set in stone!**
 
 ### `internals/`
 
@@ -178,9 +178,9 @@ The react-boilerplate building blocks interoperate to produce a seamless applica
 
 The example application is a simple service which shows a list of repositories for GitHub users using GitHub's public API. You type in a username and the application will show you a list of repositories for that user. It also shows how navigating away to a different route can be done. You can switch between English and German by selecting the desired option from the menu in the footer.
 
-#### `<HomePage />`
+#### `<Home />`
 
-Run `npm start` to launch the application. If you start browsing at [https://localhost:3000](https://localhost:3000), by default you will be navigated to the home page. Here, notice that route is `"/"`, so the [`<HomePage />`](https://github.com/react-boilerplate/react-boilerplate/blob/master/app/containers/HomePage/index.js) container will be mounted. It is responsible for rendering a form with a textbox and a list of repositories.
+Run `npm start` to launch the application. If you start browsing at [https://localhost:3000](https://localhost:3000), by default you will be navigated to the home page. Here, notice that route is `"/"`, so the [`<Home />`](https://github.com/react-boilerplate/react-boilerplate/blob/master/app/containers/Home/index.js) container will be mounted. It is responsible for rendering a form with a textbox and a list of repositories.
 
 - `mapDispatchToProps()`: Generally, we provide outgoing action creators (functions that create [action](http://redux.js.org/docs/basics/Actions.html) objects) to the react component through this method. Notice that for every keypress in textbox, your state will be updated by dispatching a `changeUsername` action to the store. So at any point in time, your Redux state will hold the currently typed username. When you submit the form, another action, `loadRepos` will be dispatched.
 
@@ -196,19 +196,19 @@ Together these two methods work like magic. When you type something in the textb
 
 _So you see, if you type something in the textbox, it will not be directly reflected in the DOM. It must pass through redux. Redux will update the state and return it to the component. It's the component's responsibility to show the updated data._
 
-#### `HomePage/saga.js`
+#### `Home/saga.js`
 
 You must be wondering where does the list of repositories come from! Sagas are primarily used for making API calls. Sagas intercept actions dispatched to the Redux store. That means a saga will listen to the actions and if it finds an action of interest, it will do something.
 
 Sagas are nothing but ES6 [generator functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*). These functions act as normal functions, the only difference is that they can be "paused" and "resumed" at any point in time. `redux-saga` provides an intuitive, declarative API for managing asynchronous operations.
 
-Check out [`HomePage/saga.js`](https://github.com/react-boilerplate/react-boilerplate/blob/master/app/containers/HomePage/saga.js). It can be confusing for untrained eyes. The API of `redux-saga` is self-descriptive once you've seen it, so let's go over what happens in there:
+Check out [`Home/saga.js`](https://github.com/react-boilerplate/react-boilerplate/blob/master/app/containers/Home/saga.js). It can be confusing for untrained eyes. The API of `redux-saga` is self-descriptive once you've seen it, so let's go over what happens in there:
 
 - You can `fork` a saga to send it to the background. That way, your code will not get blocked even when the saga is continuously running.
 - `takeLatest` is used for listening for a particular action. In this case, it will wait for a `LOAD_REPOS` action. Whenever you dispatch this action, the saga will understand that you want to fetch repos from github's public API by calling `getRepos()`.
 - If the API successfully returns some data, a `reposLoaded()` action will be dispatched which carries the data. When the Redux store receives this action, [a reducer](https://github.com/react-boilerplate/react-boilerplate/blob/master/app/containers/App/reducer.js) will set incoming data in the new state tree.
 
-_An update has occurred!_ `mapStateToProps()` will be triggered. `<HomePage />` will receive the new data and rerender.
+_An update has occurred!_ `mapStateToProps()` will be triggered. `<Home />` will receive the new data and rerender.
 
 ## Why all this fuss just to load a list of repos?
 

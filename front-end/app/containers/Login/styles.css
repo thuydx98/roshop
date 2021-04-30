@@ -1,0 +1,158 @@
+.card0 {
+  border-radius: 0px;
+}
+
+.card2 {
+  margin: 0px 80px;
+}
+
+.image {
+  width: 360px;
+  height: 280px;
+}
+
+.border-line {
+  border-right: 1px solid #eeeeee;
+}
+
+.facebook {
+  background-color: #3b5998;
+  color: #fff;
+  font-size: 18px;
+  padding-top: 5px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.twitter {
+  background-color: #ee4d2d;
+  color: #fff;
+  font-size: 18px;
+  padding-top: 5px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.apple {
+  background-color: #000;
+  color: #fff;
+  font-size: 18px;
+  padding-top: 5px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.apple .fa-apple {
+  font-size: 20px;
+}
+
+.line {
+  height: 1px;
+  width: 45%;
+  background-color: #e0e0e0;
+  margin-top: 10px;
+}
+
+.or {
+  width: 10%;
+  font-weight: bold;
+}
+
+.text-sm {
+  font-size: 14px !important;
+}
+
+::placeholder {
+  color: #bdbdbd;
+  opacity: 1;
+  font-weight: 300;
+}
+
+:-ms-input-placeholder {
+  color: #bdbdbd;
+  font-weight: 300;
+}
+
+::-ms-input-placeholder {
+  color: #bdbdbd;
+  font-weight: 300;
+}
+
+input,
+textarea {
+  padding: 10px 12px 10px 12px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  margin-bottom: 5px;
+  margin-top: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #2c3e50;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+input:focus,
+textarea:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid #304ffe;
+  outline-width: 0;
+}
+
+button:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  outline-width: 0;
+}
+
+a {
+  color: inherit;
+  cursor: pointer;
+}
+
+.btn-blue {
+  background-color: #1a237e;
+  width: 100%;
+  color: #fff;
+  border-radius: 2px;
+  margin: 10px 0;
+}
+
+.btn-blue:hover {
+  background-color: #000;
+  cursor: pointer;
+}
+
+.bg-blue {
+  color: #fff;
+  background-color: #1a237e;
+}
+
+@media screen and (max-width: 991px) {
+  .image {
+    width: 300px;
+    height: 220px;
+  }
+
+  .border-line {
+    border-right: none;
+  }
+
+  .card1 {
+    display:none;
+  }
+
+  .card2 {
+    border-top: 1px solid #eeeeee !important;
+    margin: 0px 15px;
+  }
+}
