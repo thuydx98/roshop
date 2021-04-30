@@ -26,8 +26,8 @@ before_install:
   - echo 'PATH="/usr/local/heroku/bin:$PATH"' >> ~/.profile
 
 script:
-  - cd ./front-end && npm install && npm run build && mv -v ./build/* ../back-end/ROS.Api
-  - cd ./back-end && docker-compose up -d
+  - cd ./front-end && npm install && npm run build && mv -v ./build/* ../back-end/ROS.Api/wwwroot
+  - cd ../back-end && docker-compose up -d
   - docker ps -a
 
 after_success:
