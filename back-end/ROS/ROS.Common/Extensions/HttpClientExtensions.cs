@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -7,7 +6,7 @@ using ROS.Common.Enums;
 
 namespace ROS.Common.Extensions
 {
-	public static class HttpClient
+	public static class HttpClientExtensions
 	{
 		public static async Task<TResult> ReadContentAsync<TResult>(this HttpResponseMessage response)
 		{

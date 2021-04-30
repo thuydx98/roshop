@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ROS.Common.Extensions;
 
 namespace ROS.EntityFramework
 {
@@ -79,7 +80,7 @@ namespace ROS.EntityFramework
 			{
 				if (!(entry?.Entity is ICreatedEntity createdEntity)) continue;
 
-				createdEntity.CreatedBy = _httpContextAccessor?.HttpContext?.Request?.Headers[HeaderInfo.USER_ID];
+				createdEntity.CreatedBy = _httpContextAccessor?.HttpContext?.User?.UserId();
 				createdEntity.CreatedAt = DateTime.UtcNow;
 			}
 
@@ -87,7 +88,7 @@ namespace ROS.EntityFramework
 			{
 				if (!(entry?.Entity is IUpdatedEntity updatedEntity)) continue;
 
-				updatedEntity.UpdatedBy = _httpContextAccessor?.HttpContext?.Request?.Headers[HeaderInfo.USER_ID];
+				updatedEntity.UpdatedBy = _httpContextAccessor?.HttpContext?.User?.UserId();
 				updatedEntity.UpdatedAt = DateTime.UtcNow;
 			}
 		}

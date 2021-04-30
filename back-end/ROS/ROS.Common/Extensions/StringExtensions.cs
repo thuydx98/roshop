@@ -2,7 +2,7 @@
 
 namespace ROS.Common.Extensions
 {
-	public static class String
+	public static class StringExtensions
 	{
 		public static bool IsEmpty(this string s) => s == null || s.Trim().Length == 0;
 		public static bool IsNotEmpty(this string s) => s != null && s.Trim().Length > 0;

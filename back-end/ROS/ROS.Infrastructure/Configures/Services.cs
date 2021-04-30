@@ -1,6 +1,4 @@
-﻿using ROS.Services.User.Queries;
-using ROS.Services.User.Queries.GetUserInfo;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace ROS.Infrastructure.Configures
 {
@@ -15,7 +13,7 @@ namespace ROS.Infrastructure.Configures
 
 		private static void AddUserServices(this IServiceCollection services)
 		{
-			services.AddService<GetUserInfoQuery, GetUserInfoHandler>();
+			//services.AddService<GetUserInfoQuery, GetUserInfoHandler>();
 		}
 	}
 }

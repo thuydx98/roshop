@@ -32,7 +32,7 @@ namespace ROS.Common.Mail
 				mailMessage.Cc = ReplaceEmailTest(mailMessage.Cc);
 				mailMessage.Bcc = ReplaceEmailTest(mailMessage.Bcc);
 				mailMessage.Subject = ReplaceSubjectTest(mailMessage.Subject);
-				mailMessage.HtmlMessage = mailMessage.HtmlMessage.ReplaceDomain(_mailServerSetting.SiteUrl);
+				//mailMessage.HtmlMessage = mailMessage.HtmlMessage.ReplaceDomain(_mailServerSetting.SiteUrl);
 
 				if (mailMessage.To.IsEmpty() && !keepReceiver)
 				{

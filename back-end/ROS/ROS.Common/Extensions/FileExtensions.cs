@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ROS.Common.Extensions
 {
-	public static class File
+	public static class FileExtensions
 	{
 		public static async Task<string> ReadFileContentAsync(IList<string> paths)
 		{

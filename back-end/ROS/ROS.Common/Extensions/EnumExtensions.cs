@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace ROS.Common.Extensions
 {
-	public static class Enum
+	public static class EnumExtensions
 	{
-		public static string GetDescription(this System.Enum value)
+		public static string GetDescription(this Enum value)
 		{
 			var field = value.GetType().GetField(value.ToString());
 			var attributes = field.GetCustomAttributes(typeof(DescriptionAttribute), false);
