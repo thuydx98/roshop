@@ -1,25 +1,37 @@
+# Document: https://docs.travis-ci.com/user/deployment
+# Document Heroku: https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
+
+sudo: required
 language: node_js
-
-node_js:
-  - 'node'
-  - 'lts/*'
-
-script:
-  - node ./internals/scripts/generate-templates-for-linting
-  - npm test -- --maxWorkers=4
-  - npm run build
-
-before_install:
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+cache:
+  directories:
+    - node_modules
 
 notifications:
   email:
     on_failure: change
 
-after_success: 'npm run coveralls'
+node_js:
+  - '13'
 
-cache:
-  directories:
-    - node_modules
+services:
+  - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.16.1
+
+before_install:
+  # import heroku CLI
+  # add heroku auth:token to TravisCI Environment Variables (https://travis-ci.org/github/thuydx98/human-resource-management/settings)
+  - echo 'PATH="/usr/local/heroku/bin:$PATH"' >> ~/.profile
+
+script:
+  - cd ./front-end && npm run build && mv -v ./build/* ../back-end/ROS/ROS.Api
+  - cd ./back-end && docker-compose up -d
+  - docker ps -a
+
+after_success:
+  - heroku container:login
+  - docker tag rosen-shop registry.heroku.com/rosen-shop/web
+  - docker push registry.heroku.com/rosen-shop/web
+  - heroku container:release web --app rosen-shop
