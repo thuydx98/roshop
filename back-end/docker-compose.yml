@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+
+  # web:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: rosen-shop-container
+    image: rosen-shop
+    networks:
+      - rosen-shop-network
+    ports:
+      - '80:80'
+      - '433:433'
+    environment:
+    - ASPNETCORE_ENVIRONMENT=Development
+    - API_URI=https://rosen-shop.herokuapp.com
+    restart: unless-stopped
+
+networks:
+  rosen-shop-network:
+    driver: bridge
