@@ -4,7 +4,13 @@
 		"ROS.Api": {
 			"commandName": "Project",
 			"environmentVariables": {
-				"ASPNETCORE_ENVIRONMENT": "Development"
+				"ASPNETCORE_ENVIRONMENT": "Development",
+				"API_URL": "https://localhost:5001",
+				"READ_DATABASE_CONNECTION_STRING": "Host=188.166.245.251;port=5333;Database=roshop;Username=nguyenthien;Password=nguyenthien",
+				"WRITE_DATABASE_CONNECTION_STRING": "Host=188.166.245.251;port=5333;Database=roshop;Username=nguyenthien;Password=nguyenthien",
+				"PROTECT_KEY_PATH": "D://",
+				"TOKEN_EXPIRE_TIME_IN_MINUTES": "1440",
+				"CONFIGURATION_DATABASE_CONNECTION_STRING": "Host=188.166.245.251;port=5333;Database=roshop.configuration;Username=nguyenthien;Password=nguyenthien"
 			},
 			"dotnetRunMessages": "true",
 			"applicationUrl": "https://localhost:5001;http://localhost:5000"

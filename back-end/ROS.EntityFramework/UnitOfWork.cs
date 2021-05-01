@@ -16,7 +16,7 @@ namespace ROS.EntityFramework
 		public TContext Context { get; }
 
 		private readonly IHttpContextAccessor _httpContextAccessor;
-		private Dictionary<(Type type, string name), object> _repositories;
+		private Dictionary<Type, object> _repositories;
 
 		public UnitOfWork(TContext context, IHttpContextAccessor httpContextAccessor = null)
 		{
@@ -43,22 +43,18 @@ namespace ROS.EntityFramework
 
 		public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
 		{
-			return (IRepository<TEntity>)GetOrAddRepository(typeof(TEntity), new Repository<TEntity>(Context));
-		}
+			_repositories ??= new Dictionary<Type, object>();
 
-		#region Private Methods
-		private object GetOrAddRepository(Type type, object repository)
-		{
-			_repositories ??= new Dictionary<(Type type, string Name), object>();
-
-			if (_repositories.TryGetValue((type, repository.GetType().FullName), out repository))
+			if (_repositories.TryGetValue(typeof(TEntity), out object repository))
 			{
-				return repository;
+				return (IRepository<TEntity>)repository;
 			}
 
-			_repositories.Add((type, repository.GetType().FullName), repository);
+			repository = new Repository<TEntity>(Context);
 
-			return repository;
+			_repositories.Add(typeof(TEntity), repository);
+
+			return (IRepository<TEntity>)repository;
 		}
 
 		private void TrackChanges()
@@ -80,7 +76,7 @@ namespace ROS.EntityFramework
 			{
 				if (!(entry?.Entity is ICreatedEntity createdEntity)) continue;
 
-				createdEntity.CreatedBy = _httpContextAccessor?.HttpContext?.User?.UserId();
+				createdEntity.CreatedBy = _httpContextAccessor?.HttpContext?.User?.FindFirst("sub")?.Value;
 				createdEntity.CreatedAt = DateTime.UtcNow;
 			}
 
@@ -88,10 +84,9 @@ namespace ROS.EntityFramework
 			{
 				if (!(entry?.Entity is IUpdatedEntity updatedEntity)) continue;
 
-				updatedEntity.UpdatedBy = _httpContextAccessor?.HttpContext?.User?.UserId();
+				updatedEntity.UpdatedBy = _httpContextAccessor?.HttpContext?.User?.FindFirst("sub")?.Value;
 				updatedEntity.UpdatedAt = DateTime.UtcNow;
 			}
 		}
-		#endregion
 	}
 }

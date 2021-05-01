@@ -128,8 +128,8 @@ namespace ROS.EntityFramework
 			Expression<Func<T, bool>> predicate = null,
 			Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
 			Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-			int pageIndex = 1,
-			int pageSize = 20,
+			int page = 1,
+			int size = 20,
 			bool asNoTracking = true,
 			CancellationToken cancellationToken = default)
 		{
@@ -141,9 +141,9 @@ namespace ROS.EntityFramework
 			if (predicate != null) query = query.Where(predicate);
 
 			if (orderBy != null)
-				return orderBy(query).ToPaginateAsync(pageIndex, pageSize, 1, cancellationToken);
+				return orderBy(query).ToPaginateAsync(page, size, 1, cancellationToken);
 
-			return query.ToPaginateAsync(pageIndex, pageSize, 1, cancellationToken);
+			return query.ToPaginateAsync(page, size, 1, cancellationToken);
 		}
 
 		public Task<IPaginate<TResult>> GetPagingListAsync<TResult>(
@@ -151,8 +151,8 @@ namespace ROS.EntityFramework
 			Expression<Func<T, bool>> predicate = null,
 			Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
 			Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-			int pageIndex = 1,
-			int pageSize = 20,
+			int page = 1,
+			int size = 20,
 			bool asNoTracking = true,
 			CancellationToken cancellationToken = default)
 		{
@@ -165,9 +165,9 @@ namespace ROS.EntityFramework
 			if (predicate != null) query = query.Where(predicate);
 
 			if (orderBy != null)
-				return orderBy(query).Select(selector).ToPaginateAsync(pageIndex, pageSize, 1, cancellationToken);
+				return orderBy(query).Select(selector).ToPaginateAsync(page, size, 1, cancellationToken);
 
-			return query.Select(selector).ToPaginateAsync(pageIndex, pageSize, 1, cancellationToken);
+			return query.Select(selector).ToPaginateAsync(page, size, 1, cancellationToken);
 		}
 		#endregion
 

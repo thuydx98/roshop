@@ -44,7 +44,6 @@ namespace ROS.Common.ApiResponse
 		public async Task ExecuteResultAsync(ActionContext context)
 		{
 			context.HttpContext.Response.StatusCode = (int)HttpCode;
-			context.HttpContext.Response.ContentType = $"{HeaderMediaType.JSON.GetDescription()}; charset=utf-8";
 
 			var result = new ObjectResult(Value)
 			{

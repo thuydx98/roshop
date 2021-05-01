@@ -1,59 +1,137 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using ROS.Common.Enums;
+using ROS.Data.Entities;
 using ROS.EntityFramework.Contracts;
 
 namespace ROS.Data.Contexts.Application
 {
-	public class ApplicationContext : DbContext, IApplicationDbContext
+	public abstract class ApplicationContext : IdentityDbContext<UserEntity, RoleEntity, int>, IApplicationDbContext
 	{
-		public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
+		public ApplicationContext(DbContextOptions options) : base(options) { }
 
 		#region Tables
-		//public virtual DbSet<ProgramEntity> Programs { get; set; }
+		public virtual DbSet<BrandEntity> Brands { get; set; }
+		public virtual DbSet<CategoryEntity> Categories { get; set; }
+		public virtual DbSet<OrderEntity> Orders { get; set; }
+		public virtual DbSet<OrderDetailEntity> OrderDetails { get; set; }
+		public virtual DbSet<ProductCategoryEntity> ProductCategories { get; set; }
+		public virtual DbSet<ProductEntity> Products { get; set; }
+		public virtual DbSet<ProductPhotoEntity> ProductPhotos { get; set; }
+		public virtual DbSet<ProductVoteEntity> ProductVotes { get; set; }
+		public virtual DbSet<ProductVotePhotoEntity> ProductVotePhotos { get; set; }
 		#endregion
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnModelCreating(ModelBuilder builder)
 		{
-			modelBuilder.HasPostgresExtension("unaccent");
+			base.OnModelCreating(builder);
 
-			//modelBuilder.Entity<ProgramEntity>(entity =>
-			//{
-			//	entity.ToTable("Programs");
-			//	entity.HasKey(entity => entity.Id);
-			//	entity.HasIndex(p => p.Title).IsUnique();
-			//});
+			foreach (var entity in builder.Model.GetEntityTypes())
+			{
+				entity.SetTableName(entity.GetTableName().Replace("AspNet", string.Empty));
+			}
 
-			//modelBuilder.Entity<FormEntity>(entity =>
-			//{
-			//	entity.ToTable("Forms");
-			//	entity.HasKey(entity => entity.Id);
-			//	entity.HasIndex(e => new { e.FormTitle, e.StartTime });
-			//	entity.HasIndex(e => e.FormTitle).IsUnique();
+			builder.HasPostgresExtension("unaccent");
 
-			//	entity.HasOne(n => n.Program)
-			//	.WithMany(n => n.Forms)
-			//	.HasForeignKey(n => n.ProgramId)
-			//	.OnDelete(DeleteBehavior.Cascade);
-			//});
+			builder.Entity<BrandEntity>(entity =>
+			{
+			});
 
-			//modelBuilder.Entity<QuestionEntity>(entity =>
-			//{
-			//	entity.ToTable("Questions");
-			//	entity.HasKey(entity => entity.Id);
-			//	entity.HasIndex(e => new { e.FormId, e.Type });
-			//});
+			builder.Entity<CategoryEntity>(entity =>
+			{
+			});
 
+			builder.Entity<OrderEntity>(entity =>
+			{
+				entity.HasOne(n => n.User)
+					.WithMany(n => n.Orders)
+					.HasForeignKey(n => n.UserId)
+					.OnDelete(DeleteBehavior.Cascade);
+			});
 
-			//modelBuilder.Entity<EmailTemplateEntity>(entity =>
-			//{
-			//	entity.ToTable("EmailTemplates");
-			//	entity.HasKey(entity => entity.Id);
-			//	entity.HasIndex(e => new { e.ProgramId, e.IsActive });
+			builder.Entity<OrderDetailEntity>(entity =>
+			{
+				entity.HasKey(e => new { e.OrderId, e.ProductId });
 
-			//	entity.HasOne(n => n.Program)
-			//		.WithMany(n => n.EmailTemplates)
-			//		.HasForeignKey(n => n.ProgramId)
-			//		.OnDelete(DeleteBehavior.Cascade);
-			//});
+				entity.HasOne(n => n.Product)
+					   .WithMany(n => n.OrderDetails)
+					   .HasForeignKey(n => n.ProductId)
+					   .OnDelete(DeleteBehavior.Cascade);
+
+				entity.HasOne(n => n.Order)
+					   .WithMany(n => n.Details)
+					   .HasForeignKey(n => n.OrderId)
+					   .OnDelete(DeleteBehavior.Cascade);
+			});
+
+			builder.Entity<ProductCategoryEntity>(entity =>
+			{
+				entity.HasKey(e => new { e.CategoryId, e.ProductId });
+
+				entity.HasOne(n => n.Product)
+					   .WithMany(n => n.ProductCategories)
+					   .HasForeignKey(n => n.ProductId)
+					   .OnDelete(DeleteBehavior.Cascade);
+
+				entity.HasOne(n => n.Category)
+					   .WithMany(n => n.ProductCategories)
+					   .HasForeignKey(n => n.CategoryId)
+					   .OnDelete(DeleteBehavior.Cascade);
+			});
+
+			builder.Entity<ProductEntity>(entity =>
+			{
+				entity.HasKey(entity => entity.Id);
+				entity.Property(p => p.Type).HasConversion(new EnumToStringConverter<ProductTypes>());
+
+				entity.HasOne(n => n.Brand)
+					.WithMany(n => n.Products)
+					.HasForeignKey(n => n.BrandId)
+					.OnDelete(DeleteBehavior.Cascade);
+			});
+
+			builder.Entity<ProductPhotoEntity>(entity =>
+			{
+				entity.HasOne(n => n.Product)
+					.WithMany(n => n.Photos)
+					.HasForeignKey(n => n.ProductId)
+					.OnDelete(DeleteBehavior.Cascade);
+			});
+
+			builder.Entity<ProductVoteEntity>(entity =>
+			{
+				entity.HasOne(n => n.Product)
+					.WithMany(n => n.Votes)
+					.HasForeignKey(n => n.ProductId)
+					.OnDelete(DeleteBehavior.Cascade);
+
+				entity.HasOne(n => n.Author)
+					.WithMany(n => n.Votes)
+					.HasForeignKey(n => n.AuthorId)
+					.OnDelete(DeleteBehavior.Cascade);
+
+				entity.HasOne(n => n.Order)
+					.WithMany(n => n.Votes)
+					.HasForeignKey(n => n.OrderId)
+					.OnDelete(DeleteBehavior.Cascade);
+			});
+
+			builder.Entity<ProductVotePhotoEntity>(entity =>
+			{
+				entity.HasOne(n => n.Vote)
+					.WithMany(n => n.Photos)
+					.HasForeignKey(n => n.VoteId)
+					.OnDelete(DeleteBehavior.Cascade);
+			});
+
+			builder.Entity<RoleEntity>(users =>
+			{
+			});
+
+			builder.Entity<UserEntity>(users =>
+			{
+			});
 		}
 	}
 }

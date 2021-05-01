@@ -8,4 +8,13 @@
     <ProjectReference Include="..\ROS.Data\ROS.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Product\Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IdentityServer4" Version="4.1.2" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+  </ItemGroup>
+
 </Project>

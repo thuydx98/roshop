@@ -1,8 +1,9 @@
+using MBP.Identity.Infrastructure.Configures;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ROS.Common.Constants.Identity;
 using ROS.Contracts.Configures;
 using ROS.Infrastructure.Configures;
 using ROS.Infrastructure.Mapper;
@@ -17,7 +18,7 @@ namespace ROS.Api
 		{
 			services.AddMediator();
 			services.AddAutoMapper();
-			services.AddUnitOfWork();
+			services.AddUnitOfWork().AddIdentityProvider().AddAuth();
 			services.AddServices();
 			services.AddSwagger();
 
@@ -49,13 +50,15 @@ namespace ROS.Api
 				}
 			});
 
-
 			app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 			app.UseRouting();
 			app.UseMiddlewares();
+			app.UseIdentityServer();
 			app.UseLocalization().UseHealthChecks();
 
-			app.UseEndpoints(endpoints => endpoints.MapControllers());
+			app.UseAuthentication().UseAuthorization();
+
+			app.UseEndpoints(endpoints => endpoints.MapControllers().RequireAuthorization(Policies.API_SCOPE));
 		}
 	}
 }

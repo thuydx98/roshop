@@ -50,8 +50,8 @@ namespace ROS.Contracts.EntityFramework
 			Expression<Func<T, bool>> predicate = null,
 			Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
 			Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-			int pageIndex = 1,
-			int pageSize = 20,
+			int page = 1,
+			int size = 20,
 			bool asNoTracking = true,
 			CancellationToken cancellationToken = default);
 
@@ -60,8 +60,8 @@ namespace ROS.Contracts.EntityFramework
 			Expression<Func<T, bool>> predicate = null,
 			Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
 			Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-			int pageIndex = 1,
-			int pageSize = 20,
+			int page = 1,
+			int size = 20,
 			bool asNoTracking = true,
 			CancellationToken cancellationToken = default);
 		#endregion

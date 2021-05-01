@@ -18,12 +18,14 @@ namespace ROS.Infrastructure.Configures
 			if (readConnectionString.IsNotEmpty())
 			{
 				services.AddDbContext<ReadDbContext>(opt => opt.UseNpgsql(readConnectionString));
+				services.AddScoped<IRepositoryFactory, UnitOfWork<ReadDbContext>>();
 				services.AddScoped<IUnitOfWork<ReadDbContext>, UnitOfWork<ReadDbContext>>();
 			}
 
 			if (writeConnectionString.IsNotEmpty())
 			{
 				services.AddDbContext<WriteDbContext>(opt => opt.UseNpgsql(writeConnectionString));
+				services.AddScoped<IRepositoryFactory, UnitOfWork<WriteDbContext>>();
 				services.AddScoped<IUnitOfWork<WriteDbContext>, UnitOfWork<WriteDbContext>>();
 			}
 

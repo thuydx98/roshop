@@ -31,13 +31,13 @@ namespace ROS.Common.Extensions
 		/// <param name="right">An expression to set the right property of the binary expression</param>
 		/// <returns>A binary expression that has the node type property equal to AndAlso, 
 		/// and the left and right properties set to the specified values</returns>
-		public static Expression<Func<T, Boolean>> AndAlso<T>(Expression<Func<T, Boolean>> left, Expression<Func<T, Boolean>> right)
+		public static Expression<Func<T, Boolean>> AndAlso<T>(this Expression<Func<T, Boolean>> left, Expression<Func<T, Boolean>> right)
 		{
-			Expression<Func<T, bool>> combined = Expression.Lambda<Func<T, bool>>(
+			var combined = Expression.Lambda<Func<T, bool>>(
 				Expression.AndAlso(
-					left.Body,
+					left.Body, 
 					new ExpressionParameterReplacer(right.Parameters, left.Parameters).Visit(right.Body)
-					), left.Parameters);
+				), left.Parameters);
 
 			return combined;
 		}

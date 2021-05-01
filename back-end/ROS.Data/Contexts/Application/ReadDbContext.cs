@@ -4,6 +4,6 @@ namespace ROS.Data.Contexts.Application
 {
 	public class ReadDbContext : ApplicationContext
 	{
-		public ReadDbContext(DbContextOptions<ApplicationContext> options) : base(options) { }
+		public ReadDbContext(DbContextOptions<ReadDbContext> options) : base(options) { }
 	}
 }

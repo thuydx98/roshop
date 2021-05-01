@@ -6,32 +6,32 @@ namespace ROS.Contracts.Paging
 {
 	public class Paginate<TResult> : IPaginate<TResult>
 	{
-		public int PageSize { get; set; }
-		public int PageIndex { get; set; }
+		public int Size { get; set; }
+		public int Page { get; set; }
 		public int Total { get; set; }
 		public IList<TResult> Items { get; set; }
 
-		public Paginate(IEnumerable<TResult> source, int pageIndex, int pageSize, int firstPage)
+		public Paginate(IEnumerable<TResult> source, int page, int size, int firstPage)
 		{
 			var enumerable = source as TResult[] ?? source.ToArray();
-			if (firstPage > pageIndex)
+			if (firstPage > page)
 			{
-				throw new ArgumentException($"pageIndex ({pageIndex}) must greater or equal than firstPage ({firstPage})");
+				throw new ArgumentException($"page ({page}) must greater or equal than firstPage ({firstPage})");
 			}
 
 			if (source is IQueryable<TResult> queryable)
 			{
-				PageIndex = pageIndex;
-				PageSize = pageSize;
+				Page = page;
+				Size = size;
 				Total = queryable.Count();
-				Items = queryable.Skip((pageIndex - firstPage) * pageSize).Take(pageSize).ToList();
+				Items = queryable.Skip((page - firstPage) * size).Take(size).ToList();
 			}
 			else
 			{
-				PageIndex = pageIndex;
-				PageSize = pageSize;
+				Page = page;
+				Size = size;
 				Total = enumerable.Length;
-				Items = enumerable.Skip((pageIndex - firstPage) * pageSize).Take(pageSize).ToList();
+				Items = enumerable.Skip((page - firstPage) * size).Take(size).ToList();
 			}
 		}
 
@@ -43,39 +43,39 @@ namespace ROS.Contracts.Paging
 
 	public class Paginate<TSource, TResult> : IPaginate<TResult>
 	{
-		public int PageSize { get; set; }
-		public int PageIndex { get; set; }
+		public int Size { get; set; }
+		public int Page { get; set; }
 		public int Total { get; set; }
 		public IList<TResult> Items { get; set; }
 
 		public Paginate(
 			IEnumerable<TSource> source,
 			Func<IEnumerable<TSource>, IEnumerable<TResult>> converter,
-			int pageIndex,
-			int pageSize,
+			int page,
+			int size,
 			int firstPage)
 		{
 			var enumerable = source as TSource[] ?? source.ToArray();
-			if (firstPage > pageIndex)
+			if (firstPage > page)
 			{
-				throw new ArgumentException($"pageIndex ({pageIndex}) must greater or equal than firstPage ({firstPage})");
+				throw new ArgumentException($"page ({page}) must greater or equal than firstPage ({firstPage})");
 			}
 
 			if (source is IQueryable<TSource> queryable)
 			{
-				var items = queryable.Skip((pageIndex - firstPage) * pageSize).Take(pageSize).ToArray();
+				var items = queryable.Skip((page - firstPage) * size).Take(size).ToArray();
 
-				PageIndex = pageIndex;
-				PageSize = pageSize;
+				Page = page;
+				Size = size;
 				Total = queryable.Count();
 				Items = new List<TResult>(converter(items));
 			}
 			else
 			{
-				var items = enumerable.Skip((pageIndex - firstPage) * pageSize).Take(pageSize).ToArray();
+				var items = enumerable.Skip((page - firstPage) * size).Take(size).ToArray();
 
-				PageIndex = pageIndex;
-				PageSize = pageSize;
+				Page = page;
+				Size = size;
 				Total = enumerable.Length;
 				Items = new List<TResult>(converter(items));
 			}
@@ -83,8 +83,8 @@ namespace ROS.Contracts.Paging
 
 		public Paginate(IPaginate<TSource> source, Func<IEnumerable<TSource>, IEnumerable<TResult>> converter)
 		{
-			PageIndex = source.PageIndex;
-			PageSize = source.PageSize;
+			Page = source.Page;
+			Size = source.Size;
 			Total = source.Total;
 			Items = new List<TResult>(converter(source.Items));
 		}
