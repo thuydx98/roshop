@@ -1,0 +1,26 @@
+.profile-page {
+  margin: 30px 0;
+
+  .list-group {
+    position: inherit;
+
+    .text-social {
+      margin: 0 10px;
+      max-width: 90px;
+      position: absolute;
+      right: 50px;
+      top: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: right !important;
+      width: 100%;
+    }
+
+    .btn-social-link {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+  }
+}
