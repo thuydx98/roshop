@@ -35,7 +35,7 @@ namespace MBP.Identity.Infrastructure.Configures
 
 			services.AddIdentity<UserEntity, RoleEntity>(options =>
 			{
-				options.User.RequireUniqueEmail = true;
+				options.User.RequireUniqueEmail = false;
 				options.Password.RequiredLength = 0;
 				options.Password.RequiredUniqueChars = 0;
 				options.Password.RequireLowercase = false;

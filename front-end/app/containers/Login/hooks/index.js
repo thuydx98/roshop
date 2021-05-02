@@ -45,9 +45,18 @@ export const useHooks = () => {
     [payload, setIsSubmitted],
   );
 
+  const onSocialLogin = useCallback((provider, accessToken) => {
+    const data = {
+      provider,
+      accessToken,
+      grantType: 'external',
+    };
+    login(data);
+  }, []);
+
   return {
     states: { payload, loginState, loginError, isSubmitted },
-    handlers: { setPayload, onSubmit },
+    handlers: { setPayload, onSubmit, onSocialLogin },
   };
 };
 

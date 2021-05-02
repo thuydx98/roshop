@@ -9,8 +9,7 @@ export function* loginWatcher() {
 }
 
 export function* loginTask(action) {
-  const { email, password } = action.payload;
-  const { response, error } = yield call(login, email, password);
+  const { response, error } = yield call(login, action.payload);
   if (response) {
     const authInfo = new AuthInfo(response);
     AuthUtils.storeAuthInfo(authInfo);

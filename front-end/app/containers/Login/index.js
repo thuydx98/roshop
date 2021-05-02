@@ -7,7 +7,7 @@ import saga from './saga';
 import { sliceKey, reducer } from './slice';
 import useHooks from './hooks';
 import useFacebook from './hooks/facebook';
-import './styles.css';
+import './styles/styles.css';
 
 export default function Login() {
   useInjectSaga({ key: sliceKey, saga });
@@ -16,7 +16,19 @@ export default function Login() {
   const [FBInstance, isReady] = useFacebook();
   const { states, handlers } = useHooks();
   const { payload, loginState, loginError } = states;
-  const { setPayload, onSubmit } = handlers;
+  const { setPayload, onSubmit, onSocialLogin } = handlers;
+
+  const checkFacebookStatus = response => {
+    if (response.status === 'connected') {
+      onSocialLogin('facebook', response.authResponse.accessToken);
+    } else {
+      FBInstance.login(res => {
+        if (res.status === 'connected') {
+          onSocialLogin('facebook', response.authResponse.accessToken);
+        }
+      });
+    }
+  };
 
   return (
     <div className="container-fluid mx-auto">
@@ -33,13 +45,15 @@ export default function Login() {
             <div className="card2 card border-0 px-4 py-5">
               <div className="row mb-4 px-3">
                 <h6 className="mb-0 mr-4 mt-2">Sign in with</h6>
-                <button
-                  type="button"
-                  className="facebook text-center mr-3"
-                  onClick={() => FBInstance.getLoginStatus(res => console.log(res))}
-                >
-                  <div className="fab fa-facebook-f" />
-                </button>
+                {isReady && (
+                  <button
+                    type="button"
+                    className="facebook text-center mr-3"
+                    onClick={() => FBInstance.getLoginStatus(res => checkFacebookStatus(res))}
+                  >
+                    <div className="fab fa-facebook-f" />
+                  </button>
+                )}
                 <div className="twitter text-center mr-3">
                   <div className="fab fa-google" />
                 </div>
