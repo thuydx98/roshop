@@ -117,6 +117,7 @@ module.exports = options => ({
     // drop any unreachable code.
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
+      API_URI: process.env.API_URI,
     }),
   ]),
   resolve: {

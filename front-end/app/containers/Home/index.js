@@ -1,6 +1,19 @@
 import React from 'react';
+import { useInjectSaga } from 'utils/injectSaga';
+import { useInjectReducer } from 'utils/injectReducer';
+import saga from './saga';
+import { sliceKey, reducer } from './slice';
+import useHooks from './hook';
 
 export default function Home() {
+  useInjectSaga({ key: sliceKey, saga });
+  useInjectReducer({ key: sliceKey, reducer });
+
+  const { states } = useHooks();
+  const { products, getListProductStatus } = states;
+
+  console.log(products, getListProductStatus);
+
   return (
     <div className="App">
       <section className="section-content padding-y">

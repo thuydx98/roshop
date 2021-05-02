@@ -1,7 +1,19 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { selectIsAuthenticated } from 'containers/App/selectors';
+import { actions } from 'containers/App/slice';
+import useActions from 'utils/hooks/useActions';
 
 export default function Header() {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const { logout } = useActions(
+    {
+      logout: actions.logout,
+    },
+    [actions],
+  );
+
   return (
     <header className="section-header">
       <section className="header-main border-bottom">
@@ -39,7 +51,15 @@ export default function Header() {
                   <div className="text">
                     <span className="text-muted">Welcome!</span>
                     <div>
-                      <Link to="/sign-in">Sign in</Link> |<Link to="/sign-up"> Sign up</Link>
+                      {!isAuthenticated ? (
+                        <>
+                          <Link to="/sign-in">Sign in</Link> | <Link to="/sign-up"> Sign up</Link>
+                        </>
+                      ) : (
+                        <button type="button" className="btn btn-link p-0 pl-1" onClick={logout}>
+                          Sign out
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
