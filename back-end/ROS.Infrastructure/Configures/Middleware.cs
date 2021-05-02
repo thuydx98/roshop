@@ -9,6 +9,17 @@ namespace ROS.Infrastructure.Configures
 		{
 			builder.UseMiddleware<ExceptionMiddleware>();
 
+			builder.Use(async (context, next) =>
+			{
+				await next();
+
+				if (context.Response.StatusCode == 404)
+				{
+					context.Request.Path = "/index.html";
+					await next();
+				}
+			});
+
 			return builder;
 		}
 	}

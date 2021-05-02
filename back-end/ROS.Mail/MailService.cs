@@ -11,28 +11,24 @@ namespace ROS.Common.Mail
 	public class MailService : IMailService
 	{
 		private readonly MailServerSetting _mailServerSetting;
-		private readonly ILogger _logger;
 
-		public MailService(MailServerSetting mailServerSetting, ILogger<MailService> logger)
+		public MailService(MailServerSetting mailServerSetting)
 		{
 			_mailServerSetting = mailServerSetting;
-			_logger = logger;
 		}
 
-		public async Task SendAsync(MailMessage mailMessage, bool keepReceiver = false)
+		public async Task<bool> SendAsync(MailMessage mailMessage, bool keepReceiver = false)
 		{
 			try
 			{
-				string signature = "<p><em>This email was sent automatically by ROS. Please don't reply this email.</em></p>";
-
 				mailMessage.From = _mailServerSetting.FromAddress;
 				mailMessage.DisplayName = _mailServerSetting.DisplayName;
-				mailMessage.HtmlMessage = ReplaceContentTest(mailMessage) + signature;
+				mailMessage.HtmlMessage = ReplaceContentTest(mailMessage);
 				mailMessage.To = ReplaceEmailTest(mailMessage.To);
 				mailMessage.Cc = ReplaceEmailTest(mailMessage.Cc);
 				mailMessage.Bcc = ReplaceEmailTest(mailMessage.Bcc);
 				mailMessage.Subject = ReplaceSubjectTest(mailMessage.Subject);
-				//mailMessage.HtmlMessage = mailMessage.HtmlMessage.ReplaceDomain(_mailServerSetting.SiteUrl);
+				mailMessage.HtmlMessage = mailMessage.HtmlMessage;
 
 				if (mailMessage.To.IsEmpty() && !keepReceiver)
 				{
@@ -48,8 +44,7 @@ namespace ROS.Common.Mail
 					}
 					else
 					{
-						_logger.LogInformation("No receiver", "From: " + _mailServerSetting.FromAddress, "To: " + mailMessage.To, "CC: " + mailMessage.Cc, "Bcc: " + mailMessage.Bcc, "Message:" + mailMessage.HtmlMessage);
-						return;
+						return false;
 					}
 				}
 
@@ -65,10 +60,12 @@ namespace ROS.Common.Mail
 
 					client.Disconnect(true);
 				}
+
+				return true;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				_logger.LogError(ex, "MailContent:" + JsonSerializer.Serialize(mailMessage));
+				return false;
 			}
 		}
 
@@ -76,15 +73,16 @@ namespace ROS.Common.Mail
 		{
 			if (string.IsNullOrWhiteSpace(emailAdress)) return string.Empty;
 
-			return string.IsNullOrWhiteSpace(_mailServerSetting.EmailTest) ?
-				emailAdress : _mailServerSetting.EmailTest;
+			return string.IsNullOrWhiteSpace(_mailServerSetting.EmailTest)
+				? emailAdress
+				: _mailServerSetting.EmailTest;
 		}
 
 		private string ReplaceSubjectTest(string subject)
 		{
 			if (!_mailServerSetting.EmailTest.IsEmpty())
 			{
-				return "[StandardApi Email Test] - " + subject;
+				return "[RoShop Email Test] - " + subject;
 			}
 
 			return subject;

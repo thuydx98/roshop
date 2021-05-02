@@ -31,7 +31,7 @@ namespace ROS.Services.Identity
 		/// </summary>
 		public override Task<bool> CanSignInAsync(UserEntity user)
 		{
-			var canSignIn = true;
+			var canSignIn = user.EmailConfirmed;
 			return Task.FromResult(canSignIn);
 		}
 	}

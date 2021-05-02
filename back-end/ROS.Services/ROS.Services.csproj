@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ROS.Data\ROS.Data.csproj" />
+    <ProjectReference Include="..\ROS.Mail\ROS.Mail.csproj" />
   </ItemGroup>
 
   <ItemGroup>

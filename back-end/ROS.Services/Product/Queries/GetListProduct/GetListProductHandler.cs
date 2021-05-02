@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace ROS.Services.Product.Queries.GetListProduct
 {
-	public class GetListProductHandler : IRequestHandler<GetListProductQuery, ApiResult>
+	public class GetListProductHandler : IRequestHandler<GetListProductRequest, ApiResult>
 	{
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly ILogger _logger;
@@ -27,7 +27,7 @@ namespace ROS.Services.Product.Queries.GetListProduct
 			_logger = logger;
 		}
 
-		public async Task<ApiResult> Handle(GetListProductQuery request, CancellationToken cancellationToken)
+		public async Task<ApiResult> Handle(GetListProductRequest request, CancellationToken cancellationToken)
 		{
 			try
 			{
@@ -61,7 +61,7 @@ namespace ROS.Services.Product.Queries.GetListProduct
 			AvatarUrl = p.AvatarUrl,
 		};
 
-		private Func<IQueryable<ProductEntity>, IOrderedQueryable<ProductEntity>> BuildOrderQuery(GetListProductQuery request)
+		private Func<IQueryable<ProductEntity>, IOrderedQueryable<ProductEntity>> BuildOrderQuery(GetListProductRequest request)
 		{
 			var monthBefore = DateTime.UtcNow.AddMonths(-1);
 			Expression<Func<ProductEntity, object>> expression = request.SortBy switch
@@ -78,7 +78,7 @@ namespace ROS.Services.Product.Queries.GetListProduct
 				: o => o.OrderByDescending(expression);
 		}
 
-		private Expression<Func<ProductEntity, bool>> BuildFilterQuery(GetListProductQuery request)
+		private Expression<Func<ProductEntity, bool>> BuildFilterQuery(GetListProductRequest request)
 		{
 			Expression<Func<ProductEntity, bool>> filterQuery = p => true;
 			if (request.Search.IsNotEmpty())

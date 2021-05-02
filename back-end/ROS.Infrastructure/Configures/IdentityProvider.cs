@@ -21,8 +21,8 @@ namespace MBP.Identity.Infrastructure.Configures
 			var connectionString = Environment.GetEnvironmentVariable("CONFIGURATION_DATABASE_CONNECTION_STRING");
 			var signingCredential = Environment.GetEnvironmentVariable("SIGNING_CREDENTIAL");
 			var protectKeyPath = Environment.GetEnvironmentVariable("PROTECT_KEY_PATH");
-			var tokenLifespanInMinutes = Environment.GetEnvironmentVariable("TOKEN_EXPIRE_TIME_IN_MINUTES");
-			var tokenLifespan = TimeSpan.FromMinutes(double.Parse(tokenLifespanInMinutes));
+			var tokenLifespanInHours = Environment.GetEnvironmentVariable("TOKEN_EXPIRE_TIME_IN_Hours");
+			var tokenLifespan = TimeSpan.FromHours(double.Parse(tokenLifespanInHours));
 
 			services.AddDbContext<ConfigurationContext>(options => options.UseNpgsql(connectionString));
 			services.AddDbContext<PersistedGrantContext>(options => options.UseNpgsql(connectionString));

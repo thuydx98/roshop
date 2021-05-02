@@ -1,4 +1,4 @@
-{
+﻿{
 	"$schema": "http://json.schemastore.org/launchsettings.json",
 	"profiles": {
 		"ROS.Api": {
@@ -9,8 +9,18 @@
 				"READ_DATABASE_CONNECTION_STRING": "Host=188.166.245.251;port=5333;Database=roshop;Username=nguyenthien;Password=nguyenthien",
 				"WRITE_DATABASE_CONNECTION_STRING": "Host=188.166.245.251;port=5333;Database=roshop;Username=nguyenthien;Password=nguyenthien",
 				"PROTECT_KEY_PATH": "D://",
-				"TOKEN_EXPIRE_TIME_IN_MINUTES": "1440",
-				"CONFIGURATION_DATABASE_CONNECTION_STRING": "Host=188.166.245.251;port=5333;Database=roshop.configuration;Username=nguyenthien;Password=nguyenthien"
+				"TOKEN_EXPIRE_TIME_IN_HOURS": "2",
+				"DEFAULT_USER_AVATAR": "https://www.sibberhuuske.nl/wp-content/uploads/2016/10/default-avatar.png",
+				"CONFIGURATION_DATABASE_CONNECTION_STRING": "Host=188.166.245.251;port=5333;Database=roshop.configuration;Username=nguyenthien;Password=nguyenthien",
+				"MAIL_SERVER_HOST": "smtp.gmail.com",
+				"MAIL_SERVER_PORT": "587",
+				"MAIL_SERVER_USE_SSL": "true",
+				"MAIL_SERVER_USERNAME": "mcv.kms@gmail.com",
+				"MAIL_SERVER_PASSWORD": "Kms@2020",
+				"MAIL_SERVER_SITE_URL": "https://rosen-shop.herokuapp.com",
+				"MAIL_SERVER_DISPLAY_NAME": "RoShop Việt Nam",
+				"MAIL_SERVER_FROM_ADDRESS": "no-reply@rosen-shop.herokuapp.com",
+				"APP_BUNDLE_ID": ""
 			},
 			"dotnetRunMessages": "true",
 			"applicationUrl": "https://localhost:5001;http://localhost:5000"

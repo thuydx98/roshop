@@ -4,6 +4,6 @@ namespace ROS.Common.Mail
 {
 	public interface IMailService
 	{
-		Task SendAsync(MailMessage mailMessage, bool keepReceiver = false);
+		Task<bool> SendAsync(MailMessage mailMessage, bool keepReceiver = false);
 	}
 }

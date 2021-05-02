@@ -14,8 +14,10 @@ namespace ROS.Data.Entities
 		}
 
 		public string FullName { get; set; }
-		public string AvatarUrl { get; set; }
+		public string AvatarUrl { get; set; } = Environment.GetEnvironmentVariable("DEFAULT_USER_AVATAR");
 		public string Status { get; set; }
+		public string ActivationCode { get; set; }
+		public DateTime? CodeExpireAt { get; set; }
 
 		public DateTime? UpdatedAt { get; set; }
 		public string UpdatedBy { get; set; }

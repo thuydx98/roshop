@@ -4,7 +4,7 @@ using ROS.Common.Enums;
 
 namespace ROS.Services.Product.Queries.GetListProduct
 {
-	public class GetListProductQuery : IRequest<ApiResult>
+	public class GetListProductRequest : IRequest<ApiResult>
 	{
 		public int Page { get; set; } = 1;
 		public int Size { get; set; } = 20;
