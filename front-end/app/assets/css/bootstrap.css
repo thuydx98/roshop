@@ -2958,11 +2958,11 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: #3167eb;
+  color: #212529;
   text-decoration: none;
 }
 .btn-link:hover {
-  color: #1244bd;
+  color: #3167eb;
   text-decoration: none;
 }
 .btn-link:focus, .btn-link.focus {

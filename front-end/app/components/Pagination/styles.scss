@@ -1,0 +1,37 @@
+.pagination {
+  .page-item {
+    margin: 0 5px;
+
+    &.active {
+      .page-link {
+        color: #fff;
+      }
+    }
+
+    &.disabled {
+      .page-link {
+        color: #fff;
+        background: #dee2e6;
+      }
+    }
+
+    .page-link {
+      min-width: 35px;
+      height: 35px;
+      text-align: center;
+      border-radius: 10px;
+      color: #3167eb;
+      cursor: pointer;
+
+      &.dots {
+        padding-left: 0;
+        padding-right: 0;
+        cursor: default;
+
+        &:hover {
+          background-color: #fff;
+        }
+      }
+    }
+  }
+}

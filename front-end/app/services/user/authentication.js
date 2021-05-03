@@ -27,3 +27,27 @@ export function login(payload) {
     .then(data => ({ response: data }))
     .catch(handleGeneralError);
 }
+
+export function register(payload) {
+  const { email, password } = payload;
+  return service(BASE_URL, {
+    url: '/api/auth/register',
+    method: 'POST',
+    data: { email, password },
+  })
+    .then(response => response.data)
+    .then(data => ({ response: data }))
+    .catch(handleGeneralError);
+}
+
+export function verify(payload) {
+  const { email, password, verifyCode } = payload;
+  return service(BASE_URL, {
+    url: '/api/account/verify',
+    method: 'POST',
+    data: { email, password, verifyCode },
+  })
+    .then(response => response.data)
+    .then(data => ({ response: data }))
+    .catch(handleGeneralError);
+}

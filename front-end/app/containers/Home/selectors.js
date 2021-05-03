@@ -8,9 +8,14 @@ const selectListProduct = createSelector(
   state => get('products.data', state),
 );
 
-const selectListProductStatus = createSelector(
+const selectPagination = createSelector(
   select,
-  state => get('products.state', state),
+  state => get('products.pagination', state),
 );
 
-export { selectListProduct, selectListProductStatus };
+const selectListProductStatus = createSelector(
+  select,
+  state => get('products.status', state),
+);
+
+export { selectListProduct, selectListProductStatus, selectPagination };

@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import useActions from 'utils/hooks/useActions';
 import { actions as appActions } from 'containers/App/slice';
 import { ACTION_STATUS } from 'utils/constants';
-import { makeSelectLoginStatus, makeSelectLoginError } from '../selectors';
-import { actions } from '../slice';
+import { selectLoginStatus, selectLoginError } from 'containers/Auth/selectors';
+import { actions } from 'containers/Auth/slice';
 
 export const useHooks = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -13,8 +13,8 @@ export const useHooks = () => {
     password: '123456',
   });
 
-  const loginState = useSelector(makeSelectLoginStatus);
-  const loginError = useSelector(makeSelectLoginError);
+  const loginState = useSelector(selectLoginStatus);
+  const loginError = useSelector(selectLoginError);
 
   const { login, authenticateSuccess, resetState } = useActions(
     {
@@ -45,18 +45,9 @@ export const useHooks = () => {
     [payload, setIsSubmitted],
   );
 
-  const onSocialLogin = useCallback((provider, accessToken) => {
-    const data = {
-      provider,
-      accessToken,
-      grantType: 'external',
-    };
-    login(data);
-  }, []);
-
   return {
     states: { payload, loginState, loginError, isSubmitted },
-    handlers: { setPayload, onSubmit, onSocialLogin },
+    handlers: { setPayload, onSubmit },
   };
 };
 

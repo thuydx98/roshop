@@ -5,8 +5,7 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
 import Home from 'containers/Home/Loadable';
-import Login from 'containers/Login/Loadable';
-import Register from 'containers/Register/Loadable';
+import Auth from 'containers/Auth/Loadable';
 import Cart from 'containers/Cart/Loadable';
 import Profile from 'containers/Profile/Loadable';
 import NotFound from 'containers/NotFound/Loadable';
@@ -37,8 +36,8 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/cart" component={Cart} />
-        <Route exact path="/sign-in" render={() => (isAuthenticated ? <Redirect to="/" /> : <Login />)} />
-        <Route exact path="/sign-up" render={() => (isAuthenticated ? <Redirect to="/" /> : <Register />)} />
+        <Route exact path="/sign-in" render={() => (isAuthenticated ? <Redirect to="/" /> : <Auth />)} />
+        <Route exact path="/sign-up" render={() => (isAuthenticated ? <Redirect to="/" /> : <Auth />)} />
         <Route exact path="/profile" render={() => (!isAuthenticated ? <Redirect to="/sign-in" /> : <Profile />)} />
         <Route component={NotFound} />
       </Switch>

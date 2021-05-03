@@ -6,7 +6,7 @@ export function getListProduct(payload) {
   return service(BASE_URL, {
     url: '',
     method: 'GET',
-    data: { ...payload },
+    params: { ...payload },
   })
     .then(response => response.data)
     .then(data => ({ response: data }))

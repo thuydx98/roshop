@@ -6,8 +6,8 @@ export function* getListProductWatcher() {
   yield takeLatest(actions.getListProduct, getListProductTask);
 }
 
-export function* getListProductTask() {
-  const { response, error } = yield call(getListProduct);
+export function* getListProductTask(action) {
+  const { response, error } = yield call(getListProduct, action.payload);
   if (response) {
     yield put(actions.getListProductSuccess(response.result));
   } else {

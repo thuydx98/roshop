@@ -9,7 +9,7 @@ export const initialState = {
 };
 
 const authenticationSlice = createSlice({
-  name: 'loginPage',
+  name: 'auth',
   initialState,
   reducers: {
     login(state) {
