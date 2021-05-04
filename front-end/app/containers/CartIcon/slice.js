@@ -11,7 +11,7 @@ const authenticationSlice = createSlice({
   initialState,
   reducers: {
     setCart(state, action) {
-      return handleCommonSuccess(state, { key: 'cart', ...action });
+      return { ...state, cart: { data: action.payload } };
     },
     getCart(state, action) {
       return handleCommonPending(state, { key: 'cart', ...action });

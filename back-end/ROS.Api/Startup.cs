@@ -26,6 +26,7 @@ namespace ROS.Api
 			services.AddMailService();
 
 			services.AddHealthChecks();
+			services.AddResponseCaching();
 			services.AddControllers().AddJsonOptions(options =>
 			{
 				options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
@@ -47,6 +48,7 @@ namespace ROS.Api
 			app.UseMiddlewares();
 			app.UseIdentityServer();
 			app.UseLocalization().UseHealthChecks();
+			app.UseResponseCaching();
 
 			app.UseAuthentication().UseAuthorization();
 

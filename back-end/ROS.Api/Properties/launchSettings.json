@@ -20,7 +20,8 @@
 				"MAIL_SERVER_SITE_URL": "https://rosen-shop.herokuapp.com",
 				"MAIL_SERVER_DISPLAY_NAME": "RoShop Việt Nam",
 				"MAIL_SERVER_FROM_ADDRESS": "no-reply@rosen-shop.herokuapp.com",
-				"APP_BUNDLE_ID": ""
+				"APP_BUNDLE_ID": "",
+				"REDIS_HOST": "redis-19931.c252.ap-southeast-1-1.ec2.cloud.redislabs.com:19931,password=L@mV0@nhNh3"
 			},
 			"dotnetRunMessages": "true",
 			"applicationUrl": "https://localhost:5001;http://localhost:5000"

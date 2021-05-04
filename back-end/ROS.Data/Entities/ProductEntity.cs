@@ -13,6 +13,7 @@ namespace ROS.Data.Entities
 			Votes = new HashSet<ProductVoteEntity>();
 			Photos = new HashSet<ProductPhotoEntity>();
 			OrderDetails = new HashSet<OrderDetailEntity>();
+			CartItems = new HashSet<CartItemEntity>();
 		}
 
 		public int Id { get; set; }
@@ -38,5 +39,6 @@ namespace ROS.Data.Entities
 		public virtual ICollection<ProductVoteEntity> Votes { get; set; }
 		public virtual ICollection<ProductPhotoEntity> Photos { get; set; }
 		public virtual ICollection<OrderDetailEntity> OrderDetails { get; set; }
+		public virtual ICollection<CartItemEntity> CartItems { get; set; }
 	}
 }

@@ -1,11 +1,11 @@
 import React from 'react';
 import moment from 'moment';
-import useCartHooks from 'containers/CartIcon/hooks';
+import useHooks from './hooks';
 
 const Product = props => {
   const now = moment();
   const { product } = props;
-  const { handlers } = useCartHooks();
+  const { handlers } = useHooks();
   const { handleUpdateCart } = handlers;
 
   return (

@@ -18,6 +18,14 @@ namespace ROS.Contracts.ApiRoutes
 			public const string REGISTER = CONTROLLER_URI + "/register";
 		}
 
+		public static class Carts
+		{
+			private const string CONTROLLER_URI = ROOT + "/carts";
+			public const string GET = CONTROLLER_URI + "/my-cart";
+			public const string UPDATE = CONTROLLER_URI + "/my-cart";
+			public const string SYNC = CONTROLLER_URI + "/my-cart/sync";
+		}
+
 		public static class Products
 		{
 			private const string CONTROLLER_URI = ROOT + "/products";

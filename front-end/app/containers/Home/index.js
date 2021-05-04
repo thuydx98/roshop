@@ -131,7 +131,7 @@ export default function Home() {
             <main className="col-md-9">
               <header className="border-bottom mb-4 pb-3">
                 <div className="form-inline">
-                  <span className="mr-md-auto mt-3">{pagination && `${pagination.total} Items found`} </span>
+                  <span className="mr-md-auto mt-3">{getStatus === ACTION_STATUS.SUCCESS && `${pagination.total} Items found`} </span>
                   <select className="mr-2 form-control" onChange={e => onChange(JSON.parse(e.target.value))}>
                     <option value={JSON.stringify(SortBy.Latest)}>Latest items</option>
                     <option value={JSON.stringify(SortBy.Trending)}>Trending</option>

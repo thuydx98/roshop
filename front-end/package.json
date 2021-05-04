@@ -22,7 +22,7 @@
     "prebuild": "npm run build:clean",
     "build": "cross-env NODE_ENV=production API_URI=https://rosen-shop.herokuapp.com webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
     "build:clean": "rimraf ./build",
-    "start": "cross-env NODE_ENV=development API_URI=https://rosen-shop.herokuapp.com node server",
+    "start": "cross-env NODE_ENV=development API_URI=https://localhost:5001 node server",
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "start:production": "npm run test && npm run build && npm run start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",

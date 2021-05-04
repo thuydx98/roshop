@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import get from 'lodash/fp/get';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { ACTION_STATUS } from 'utils/constants';
@@ -13,7 +12,7 @@ export default function CartIcon() {
   useInjectSaga({ key: sliceKey, saga });
   useInjectReducer({ key: sliceKey, reducer });
   const { states } = useHooks();
-  const { cart, selectGetCartStatus } = states;
+  const { cart, getCartStatus } = states;
 
   const total = cart ? cart.map(item => item.quantity).reduce((a, b) => a + b, 0) : 0;
 
@@ -23,7 +22,7 @@ export default function CartIcon() {
         <i className="fa fa-shopping-cart" />
       </Link>
       <span className="badge badge-pill badge-danger notify">
-        {selectGetCartStatus === ACTION_STATUS.PENDING ? (
+        {getCartStatus === ACTION_STATUS.PENDING ? (
           <div className="spinner-border" role="status">
             <span className="sr-only">Loading...</span>
           </div>

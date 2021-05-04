@@ -16,7 +16,7 @@ export function syncCart(payload) {
   return service(BASE_URL, {
     url: '/my-cart/sync',
     method: 'POST',
-    data: { ...payload },
+    data: [...payload],
   })
     .then(response => response.data)
     .then(data => ({ response: data }))

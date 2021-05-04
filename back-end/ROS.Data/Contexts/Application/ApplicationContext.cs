@@ -14,6 +14,7 @@ namespace ROS.Data.Contexts.Application
 		#region Tables
 		public virtual DbSet<BrandEntity> Brands { get; set; }
 		public virtual DbSet<CategoryEntity> Categories { get; set; }
+		public virtual DbSet<CartItemEntity> CartItems { get; set; }
 		public virtual DbSet<OrderEntity> Orders { get; set; }
 		public virtual DbSet<OrderDetailEntity> OrderDetails { get; set; }
 		public virtual DbSet<ProductCategoryEntity> ProductCategories { get; set; }
@@ -40,6 +41,21 @@ namespace ROS.Data.Contexts.Application
 
 			builder.Entity<CategoryEntity>(entity =>
 			{
+			});
+
+			builder.Entity<CartItemEntity>(entity =>
+			{
+				entity.HasKey(e => new { e.UserId, e.ProductId });
+
+				entity.HasOne(n => n.Product)
+					.WithMany(n => n.CartItems)
+					.HasForeignKey(n => n.ProductId)
+					.OnDelete(DeleteBehavior.Cascade);
+
+				entity.HasOne(n => n.User)
+					.WithMany(n => n.CartItems)
+					.HasForeignKey(n => n.UserId)
+					.OnDelete(DeleteBehavior.Cascade);
 			});
 
 			builder.Entity<OrderEntity>(entity =>

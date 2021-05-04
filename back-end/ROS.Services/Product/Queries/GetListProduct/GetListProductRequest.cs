@@ -15,6 +15,8 @@ namespace ROS.Services.Product.Queries.GetListProduct
 		public int? BrandId { get; set; }
 		public double? MinPrice { get; set; }
 		public double? MaxPrice { get; set; }
+
+		public string productIds { get; set; }
 	}
 
 	public enum SortBy

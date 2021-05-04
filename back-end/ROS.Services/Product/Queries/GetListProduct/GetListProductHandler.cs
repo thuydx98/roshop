@@ -1,16 +1,20 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using ROS.Common.ApiResponse;
 using ROS.Common.ApiResponse.ErrorResult;
+using ROS.Common.Constants;
 using ROS.Common.Enums;
 using ROS.Common.Extensions;
 using ROS.Contracts.EntityFramework;
+using ROS.Contracts.Paging;
 using ROS.Data.Contexts.Application;
 using ROS.Data.Entities;
 using ROS.Services.Product.ViewModels;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,28 +23,30 @@ namespace ROS.Services.Product.Queries.GetListProduct
 	public class GetListProductHandler : IRequestHandler<GetListProductRequest, ApiResult>
 	{
 		private readonly IUnitOfWork _unitOfWork;
+		private readonly IDistributedCache _cache;
 		private readonly ILogger _logger;
 
-		public GetListProductHandler(IUnitOfWork<ReadDbContext> unitOfWork, ILogger<GetListProductHandler> logger)
+		public GetListProductHandler(
+			IUnitOfWork<ReadDbContext> unitOfWork,
+			ILogger<GetListProductHandler> logger,
+			IDistributedCache cache)
 		{
 			_unitOfWork = unitOfWork;
 			_logger = logger;
+			_cache = cache;
 		}
 
 		public async Task<ApiResult> Handle(GetListProductRequest request, CancellationToken cancellationToken)
 		{
 			try
 			{
-				var selector = BuildSelectQuery();
-				var predicate = BuildFilterQuery(request);
-				var orderBy = BuildOrderQuery(request);
-				var products = await _unitOfWork.GetRepository<ProductEntity>().GetPagingListAsync(
-					selector: selector,
-					predicate: predicate,
-					orderBy: orderBy,
-					page: request.Page,
-					size: request.Size,
-					cancellationToken: cancellationToken);
+				var cacheKey = CacheKey.LIST_PRODUCT + JsonSerializer.Serialize(request);
+				var products = await _cache.GetCacheValueAsync<Paginate<ProductViewModel>>(cacheKey);
+				if (products == null)
+				{
+					products = await GetListProductInDatabase(request, cancellationToken);
+					_ = _cache.SetCacheValueAsync(cacheKey, products, 60 * 5);
+				}
 
 				return ApiResult.Succeeded(products);
 			}
@@ -51,15 +57,20 @@ namespace ROS.Services.Product.Queries.GetListProduct
 			}
 		}
 
-		private Expression<Func<ProductEntity, ProductViewModel>> BuildSelectQuery() => p => new ProductViewModel()
+		private async Task<Paginate<ProductViewModel>> GetListProductInDatabase(GetListProductRequest request, CancellationToken cancellationToken)
 		{
-			Id = p.Id,
-			Code = p.Code,
-			Name = p.Name,
-			Price = p.Price,
-			Rate = p.Rate,
-			AvatarUrl = p.AvatarUrl,
-		};
+			var predicate = BuildFilterQuery(request);
+			var orderBy = BuildOrderQuery(request);
+			var products = await _unitOfWork.GetRepository<ProductEntity>().GetPagingListAsync(
+				selector: n => new ProductViewModel(n),
+				predicate: predicate,
+				orderBy: orderBy,
+				page: request.Page,
+				size: request.Size,
+				cancellationToken: cancellationToken);
+
+			return (Paginate<ProductViewModel>)products;
+		}
 
 		private Func<IQueryable<ProductEntity>, IOrderedQueryable<ProductEntity>> BuildOrderQuery(GetListProductRequest request)
 		{

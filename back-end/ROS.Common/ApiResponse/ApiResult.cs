@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using ROS.Common.ApiResponse.ErrorResult;
 using ROS.Common.Extensions;
-using ROS.Common.Enums;
 
 namespace ROS.Common.ApiResponse
 {
