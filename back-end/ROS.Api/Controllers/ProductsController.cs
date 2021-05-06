@@ -31,5 +31,18 @@ namespace ROS.Api.Controllers
 
 			return await _mediator.Send(request);
 		}
+
+		[AllowAnonymous]
+		[HttpGet(ApiRoutes.Products.GET)]
+		public async Task<IActionResult> GetAsync([FromQuery] GetListProductRequest request)
+		{
+			if (request.productIds.IsNotEmpty())
+			{
+				var data = new GetProductByIdsRequest(request.productIds);
+				return await _mediator.Send(data);
+			}
+
+			return await _mediator.Send(request);
+		}
 	}
 }

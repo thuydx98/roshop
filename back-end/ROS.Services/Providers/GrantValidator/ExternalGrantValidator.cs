@@ -22,24 +22,17 @@ namespace ROS.Services.Providers.GrantValidator
 	{
 		public string GrantType => "external";
 		private readonly Dictionary<ProviderType, IExternalAuthProvider> _providers;
-		private readonly UserManager<UserEntity> _userManager;
-		private readonly IProviderRepository _providerRepository;
 		private readonly IFacebookAuthProvider _facebookAuthProvider;
 		private readonly IGoogleAuthProvider _googleAuthProvider;
 		private readonly IAppleAuthProvider _appleAuthProvider;
 		private readonly IUserProcessor _userProcessor;
 
 		public ExternalGrantValidator(
-			UserManager<UserEntity> userManager,
-			IServiceProvider serviceProvider,
-			IProviderRepository providerRepository,
 			IFacebookAuthProvider facebookAuthProvider,
 			IGoogleAuthProvider googleAuthProvider,
 			IAppleAuthProvider appleAuthProvider,
 			IUserProcessor userProcessorr)
 		{
-			_userManager = userManager;
-			_providerRepository = providerRepository;
 			_facebookAuthProvider = facebookAuthProvider;
 			_googleAuthProvider = googleAuthProvider;
 			_appleAuthProvider = appleAuthProvider;

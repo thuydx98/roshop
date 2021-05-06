@@ -1,5 +1,4 @@
-﻿using ROS.Common.Extensions;
-using ROS.Contracts.EntityFramework;
+﻿using ROS.Contracts.EntityFramework;
 using ROS.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,19 +14,11 @@ namespace ROS.Infrastructure.Configures
 			var readConnectionString = Environment.GetEnvironmentVariable("READ_DATABASE_CONNECTION_STRING");
 			var writeConnectionString = Environment.GetEnvironmentVariable("WRITE_DATABASE_CONNECTION_STRING");
 
-			if (readConnectionString.IsNotEmpty())
-			{
-				services.AddDbContext<ReadDbContext>(opt => opt.UseNpgsql(readConnectionString));
-				services.AddScoped<IRepositoryFactory, UnitOfWork<ReadDbContext>>();
-				services.AddScoped<IUnitOfWork<ReadDbContext>, UnitOfWork<ReadDbContext>>();
-			}
+			services.AddDbContext<ReadDbContext>(opt => opt.UseNpgsql(readConnectionString));
+			services.AddScoped<IUnitOfWork<ReadDbContext>, UnitOfWork<ReadDbContext>>();
 
-			if (writeConnectionString.IsNotEmpty())
-			{
-				services.AddDbContext<WriteDbContext>(opt => opt.UseNpgsql(writeConnectionString));
-				services.AddScoped<IRepositoryFactory, UnitOfWork<WriteDbContext>>();
-				services.AddScoped<IUnitOfWork<WriteDbContext>, UnitOfWork<WriteDbContext>>();
-			}
+			services.AddDbContext<WriteDbContext>(opt => opt.UseNpgsql(writeConnectionString));
+			services.AddScoped<IUnitOfWork<WriteDbContext>, UnitOfWork<WriteDbContext>>();
 
 			return services;
 		}

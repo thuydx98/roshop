@@ -60,6 +60,8 @@ namespace ROS.Data.Contexts.Application
 
 			builder.Entity<OrderEntity>(entity =>
 			{
+				entity.Property(p => p.Status).HasConversion(new EnumToStringConverter<OrderStatus>());
+
 				entity.HasOne(n => n.User)
 					.WithMany(n => n.Orders)
 					.HasForeignKey(n => n.UserId)

@@ -1,4 +1,5 @@
-﻿using ROS.Contracts.Entities;
+﻿using ROS.Common.Enums;
+using ROS.Contracts.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -13,7 +14,7 @@ namespace ROS.Data.Entities
 		}
 
 		public string Id { get; set; } = DateTime.UtcNow.ToString("yMMddHHmmss") + "U" + "user id";
-		public int UserId { get; set; }
+		public int? UserId { get; set; }
 		public string Receiver { get; set; }
 		public string PhoneNumber { get; set; }
 		public string Address { get; set; }
@@ -23,6 +24,7 @@ namespace ROS.Data.Entities
 		public decimal Distance { get; set; }
 		public string ShippingNote { get; set; }
 		public decimal Total { get; set; }
+		public OrderStatus Status { get; set; } = OrderStatus.NEW;
 		public DateTime OrderedTime { get; set; } = DateTime.UtcNow;
 		public DateTime? ShippedTime { get; set; }
 		public DateTime? CompletedTime { get; set; }

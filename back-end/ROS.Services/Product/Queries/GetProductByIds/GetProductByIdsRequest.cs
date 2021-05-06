@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using ROS.Common.ApiResponse;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,9 +10,9 @@ namespace ROS.Services.Product.Queries.GetProductByIds
 	{
 		public GetProductByIdsRequest(string ids)
 		{
-			Ids = ids.Split(',').OfType<string>().ToList();
+			Ids = ids.Split(',').Select(Int32.Parse).ToList();
 		}
 
-		public List<string> Ids { get; set; }
+		public List<int> Ids { get; set; }
 	}
 }

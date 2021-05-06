@@ -2,9 +2,7 @@
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MailKit.Security;
-using Microsoft.Extensions.Logging;
 using ROS.Common.Extensions;
-using System.Text.Json;
 
 namespace ROS.Common.Mail
 {

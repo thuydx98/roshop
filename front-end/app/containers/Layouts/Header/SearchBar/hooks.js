@@ -10,7 +10,7 @@ export const useHooks = () => {
 
   useEffect(() => setSearch(params.search || ''), [params.search]);
 
-  const onSubmit = useCallback(() => history.push(`?search=${search}`), [search]);
+  const onSubmit = useCallback(() => history.push(`/?search=${search}`), [search]);
 
   return {
     states: { search },

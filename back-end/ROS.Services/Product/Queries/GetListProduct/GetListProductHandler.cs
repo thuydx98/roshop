@@ -72,7 +72,7 @@ namespace ROS.Services.Product.Queries.GetListProduct
 			return (Paginate<ProductViewModel>)products;
 		}
 
-		private Func<IQueryable<ProductEntity>, IOrderedQueryable<ProductEntity>> BuildOrderQuery(GetListProductRequest request)
+		private static Func<IQueryable<ProductEntity>, IOrderedQueryable<ProductEntity>> BuildOrderQuery(GetListProductRequest request)
 		{
 			var monthBefore = DateTime.UtcNow.AddMonths(-1);
 			Expression<Func<ProductEntity, object>> expression = request.SortBy switch
@@ -89,7 +89,7 @@ namespace ROS.Services.Product.Queries.GetListProduct
 				: o => o.OrderByDescending(expression);
 		}
 
-		private Expression<Func<ProductEntity, bool>> BuildFilterQuery(GetListProductRequest request)
+		private static Expression<Func<ProductEntity, bool>> BuildFilterQuery(GetListProductRequest request)
 		{
 			Expression<Func<ProductEntity, bool>> filterQuery = p => true;
 			if (request.Search.IsNotEmpty())
@@ -103,9 +103,10 @@ namespace ROS.Services.Product.Queries.GetListProduct
 				filterQuery = filterQuery.AndAlso(p => p.ProductCategories.Where(c => c.CategoryId == request.CategoryId).Any());
 			}
 
-			if (request.BrandId.HasValue)
+			if (request.BrandIds.IsNotEmpty())
 			{
-				filterQuery = filterQuery.AndAlso(p => p.BrandId == request.BrandId);
+				var ids = request.BrandIds.Split(',').Select(Int32.Parse).ToList();
+				filterQuery = filterQuery.AndAlso(p => p.BrandId.HasValue && ids.Contains(p.BrandId.Value));
 			}
 
 			if (request.MinPrice.HasValue)

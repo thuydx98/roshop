@@ -34,7 +34,7 @@ namespace ROS.Services.Identity
 
 			if (user.FullName.IsNotEmpty())
 			{
-				claims.Add(new Claim(JwtClaimTypes.GivenName, user.FullName));
+				claims.Add(new Claim(JwtClaimTypes.Name, user.FullName));
 			}
 			if (user.Email.IsNotEmpty())
 			{

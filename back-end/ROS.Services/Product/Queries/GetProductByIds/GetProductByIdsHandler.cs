@@ -29,7 +29,7 @@ namespace ROS.Services.Product.Queries.GetProductByIds
 			{
 				var products = await _unitOfWork.GetRepository<ProductEntity>().GetListAsync(
 					selector: n => new ProductViewModel(n),
-					predicate: n => request.Ids.Contains(n.Id.ToString()),
+					predicate: n => request.Ids.Contains(n.Id),
 					cancellationToken: cancellationToken);
 
 				return ApiResult.Succeeded(products);

@@ -12,7 +12,7 @@ namespace ROS.Services.Product.Queries.GetListProduct
 		public SortType SortType { get; set; } = SortType.DESC;
 		public SortBy SortBy { get; set; } = SortBy.SALES;
 		public int? CategoryId { get; set; }
-		public int? BrandId { get; set; }
+		public string BrandIds { get; set; }
 		public double? MinPrice { get; set; }
 		public double? MaxPrice { get; set; }
 

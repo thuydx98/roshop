@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ROS.Data.Entities;
+using ROS.Services.Order.Commands.CreateOrder;
 
 namespace ROS.Infrastructure.Mapper
 {
@@ -6,6 +8,9 @@ namespace ROS.Infrastructure.Mapper
 	{
 		public MappingProfile()
 		{
+			// Order
+			CreateMap<CreateOrderRequest, OrderEntity>();
+
 		}
 	}
 }
