@@ -39,7 +39,7 @@ class AuthInfoUtils {
 
   getAccessToken() {
     const authInfo = this.getAuthInfo();
-    return get('accessToken')(authInfo);
+    return get('accessToken')(authInfo) || '';
   }
 
   isAuthenticated() {
