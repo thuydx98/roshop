@@ -23,7 +23,7 @@ namespace ROS.Infrastructure.Configures
 			})
 			.AddJwtBearer(options =>
 			{
-				options.Authority = Environment.GetEnvironmentVariable("API_URL");
+				options.Authority = Environment.GetEnvironmentVariable("API_URI");
 				options.RequireHttpsMetadata = true;
 				options.TokenValidationParameters = new TokenValidationParameters()
 				{

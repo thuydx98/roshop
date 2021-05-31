@@ -5,7 +5,7 @@
 			"commandName": "Project",
 			"environmentVariables": {
 				"ASPNETCORE_ENVIRONMENT": "Development",
-				"API_URL": "https://localhost:5001",
+				"API_URI": "https://localhost:5001",
 				"READ_DATABASE_CONNECTION_STRING": "Host=188.166.245.251;port=5333;Database=roshop;Username=nguyenthien;Password=nguyenthien",
 				"WRITE_DATABASE_CONNECTION_STRING": "Host=188.166.245.251;port=5333;Database=roshop;Username=nguyenthien;Password=nguyenthien",
 				"PROTECT_KEY_PATH": "D://",

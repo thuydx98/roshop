@@ -29,7 +29,7 @@ namespace MBP.Identity.Infrastructure.Configures
 
 			services.AddTransient<IProfileService, ProfileService>();
 
-			services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo(protectKeyPath));
+			services.AddDataProtection().DisableAutomaticKeyGeneration();	//.PersistKeysToFileSystem(new DirectoryInfo(protectKeyPath));
 
 			services.Configure<DataProtectionTokenProviderOptions>(opt => opt.TokenLifespan = tokenLifespan);
 

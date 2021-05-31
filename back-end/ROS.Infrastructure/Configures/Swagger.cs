@@ -13,7 +13,7 @@ namespace ROS.Infrastructure.Configures
 	{
 		public static IServiceCollection AddSwagger(this IServiceCollection services)
 		{
-			var API_URL = Environment.GetEnvironmentVariable("API_URL");
+			var API_URI = Environment.GetEnvironmentVariable("API_URI");
 
 			services.AddSwaggerGen(options =>
 			{
@@ -26,8 +26,8 @@ namespace ROS.Infrastructure.Configures
 					{
 						AuthorizationCode = new OpenApiOAuthFlow
 						{
-							AuthorizationUrl = new Uri(API_URL + "/connect/authorize"),
-							TokenUrl = new Uri(API_URL + "/connect/token"),
+							AuthorizationUrl = new Uri(API_URI + "/connect/authorize"),
+							TokenUrl = new Uri(API_URI + "/connect/token"),
 							Scopes = new Dictionary<string, string>
 							{
 								{"api", "RoShop API - full access"}
@@ -39,7 +39,7 @@ namespace ROS.Infrastructure.Configures
 				options.AddSecurityDefinition("AccountsOpenID", new OpenApiSecurityScheme
 				{
 					Type = SecuritySchemeType.OpenIdConnect,
-					OpenIdConnectUrl = new Uri(API_URL + "/.well-known/openid-configuration"),
+					OpenIdConnectUrl = new Uri(API_URI + "/.well-known/openid-configuration"),
 				});
 
 				options.OperationFilter<AuthorizeCheckOperationFilter>();
